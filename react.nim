@@ -48,7 +48,7 @@ type
       step*, width*: cint
 
     style*: Style
-    
+
   Style* = ref object
     alignContent*, #	Sets or returns the alignment between the lines inside a flexible container when the items do not use all available space	3
     alignItems*, #	Sets or returns the alignment for items inside a flexible container	3
@@ -530,5 +530,5 @@ type
     setState*{.importcpp.}: proc(s: S)
   StatelessComponent*[P] = Component[P, void]
 
-  proc `()`*[P](c: ReactComponent, p: P): ReactNode =
-    React.createElement(c, p)
+proc `()`*[P](c: ReactComponent, p: P): ReactNode =
+  React.createElement(c, p)

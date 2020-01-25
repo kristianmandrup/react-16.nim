@@ -230,6 +230,26 @@ A CDN for `create-react-class` can be found [here](https://www.jsdelivr.com/pack
 
 To be documented
 
+## Hooks
+
+The following hooks are available via `react/reacthooks` (see usage `app.nim` in `example` folder).
+
+- `useState`
+- `useEffect`
+- `useContext`
+- `useReducer`
+- `useCallback`
+- `useMemo`
+- `useRef`
+- `useImperativeHandle`
+- `useLayoutEffect`
+- `useDebugValue`
+
+Concurrency mode hooks (aka Suspense)
+
+- `useTransition`
+- `useDeferredValue`
+
 ## Example app
 
 The example app uses

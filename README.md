@@ -52,35 +52,25 @@ is `renderComponent`. You can use any other lifecycle method such as
 An example without state, from the example app, is
 
 ```nim
-proc makeSearch(): ReactComponent =
-  defineComponent:
-    proc renderComponent(s: Search): auto =
-      `div`(
-        attrs(className = "form-group"),
-        input(attrs(
-          className = "form-control",
-          onChange = proc(e: react.Event) = s.props.handler($e.target.value),
-          value = s.props.value,
-          placeholder = "Filter here"
-        ))
-      )
+proc createInc(setNumber: proc(number: int), number: int) =
+  proc() = setNumber(number + 1)
 
-let search = makeSearch()
+proc makeCounter(): ReactComponent =
+  var [counter, setCounter] = useState(0)
+  let increaseCounter = createInc(setCounter, counter)
+  p(
+    span(attrs(className = "number"), counter)
+    button(attrs(onClick = increaseCounter))
+    )
+
+let counterC = makeCounter()
 ```
 
 As shown above, once you have the definition, you want to export a single
-instance of the React class - here we do that by `let search = makeSearch()`.
-The value `search` is what is used in Javascript to represent a component
-class - hence calling `makeSearch()` two times will give rise to two
-unrelated components, which is usually not what one wants.
-
-### The `defineComponent` macro
-
-The `defineComponent` takes care of binding the definitions of your lifecycle
-procs as methods of an actual React.js component. At the same time, it passes
-to your lifecycle procs the `this` instance of `Component[P, S]` (which
-is `Search` in the example above), making it easier to write Javascript
-methods.
+instance of the React class - here we do that by `let counterC = makeCounter()`.
+The value `counterC` is what is used in Javascript to represent a component, 
+hence calling `makeCounter()` two times will give rise to two
+unrelated counter components.
 
 ### Passing props to component
 
@@ -208,24 +198,6 @@ use `ReactDOM.createRoot` instead of `ReactDOM.render`
 ReactDOM.createRoot(rootNode).render(<App />);
 ```
 
-## React.createClass
-
-React.[createClass](https://stackoverflow.com/questions/46482433/reactjs-createclass-is-not-a-function) 
-is being deprecated and is now a separate package [create-react-class](https://www.npmjs.com/package/create-react-class).
-
-See [React Without ES6](https://reactjs.org/docs/react-without-es6.html)
-
-```js
-var createReactClass = require('create-react-class');
-var Greeting = createReactClass({
-  render: function() {
-    return <h1>Hello, {this.props.name}</h1>;
-  }
-});
-```
-
-A CDN for `create-react-class` can be found [here](https://www.jsdelivr.com/package/npm/create-react-class)
-
 ## Events
 
 To be documented
@@ -265,8 +237,5 @@ The bindings are still not complete at this point. Things that are left:
 * add more fields to the `SvgAttrs` and `Style` types
 * distinguish between keyboard and mouse events, and make sure that one
   has access to all relevant information in the event callbacks
-* reduce the boilerplate when defining components
 * add dedicated types, together with converters to string, to generate SVG
   transforms and CSS dimensions and colors in a typesafe way
-* generate [stateless functional components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions)
-  when possible

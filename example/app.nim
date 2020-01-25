@@ -1,7 +1,7 @@
 import dom, jsconsole, jsffi, strutils, sequtils, sugar
 import react
 from react/reactdom import ul, li, input, `div`
-# from react/reacthooks import useState, useEffect, useContext
+from react/reacthooks import useState # , useEffect, useContext
 
 type
   Country = ref object of RootObj
@@ -23,64 +23,50 @@ type
 
 ##### Items
 
-proc makeItems(): ReactComponent =
-  defineComponent:
-    proc renderComponent(xs: Items): auto =
-      let
-        f = xs.props
-        countries = f.countries.filter((s) => s.name.toLowerAscii.contains(f.query))
-        list = ul(countries.map((c) => li(
-          Attrs{key: c.name},
-          c.name & ": " & $c.population))
-        )
-      return `div`(Attrs{className: "col-md-4"}, list)
-
-let items = makeItems()
+proc items(countries: array[Country], query: string): ReactComponent =
+  let
+    f = xs.props
+    countries = countries.filter((s) => s.name.toLowerAscii.contains(query))
+    list = ul(countries.map((c) => li(
+      Attrs{key: c.name},
+      c.name & ": " & $c.population))
+    )
+  return `div`(Attrs{className: "col-md-4"}, list)
 
 ##### Search
 
-proc makeSearch(): ReactComponent =
-  defineComponent:
-    proc renderComponent(s: Search): auto =
-      `div`(
-        Attrs{className: "form-group"},
-        input(Attrs{
-          className: "form-control",
-          onChange: proc(e: react.Event) = s.props.handler($e.target.value),
-          value: s.props.value,
-          placeholder: "Filter here",
-          `type`: "text"
-        })
-      )
-
-let search = makeSearch()
+proc search(value: string, setValue: proc(e: auto)): ReactComponent =
+  `div`(
+    Attrs{className: "form-group"},
+    input(Attrs{
+      className: "form-control",
+      onChange: proc(e: react.Event) = setValue($e.target.value),
+      value: s.props.value,
+      placeholder: "Filter here",
+      `type`: "text"
+    })
+  )
 
 ##### Top level
 
-proc makeTopLevel(): ReactComponent =
-  defineComponent:
-    proc renderComponent(s: TopLevel): auto =
-      `div`(
-        Attrs{style: react.Style{marginTop: 50}},
-        `div`(Attrs{className: "row"},
-          `div`(Attrs{className: "col-md-4"},
-            search(ValueLink(
-              value: s.state.query,
-              handler: proc(q: string) = s.setState(Filter(query: q))
-        ))
-      )
-        ),
-        `div`(Attrs{className: "row"},
-          items(ItemFilter(
-            countries: s.props.countries,
-            query: s.state.query
-          ))
-        )
-      )
-
-    proc getInitialState(props: Countries): auto = Filter(query: "")
-
-let topLevel = makeTopLevel()
+proc topLevel(): ReactComponent =
+  `div`(
+    Attrs{style: react.Style{marginTop: 50}},
+    `div`(Attrs{className: "row"},
+      `div`(Attrs{className: "col-md-4"},
+        search(ValueLink(
+          value: query,
+          setValue: proc(q: string) = setQuery(Filter(query: q))
+    ))
+  )
+    ),
+    `div`(Attrs{className: "row"},
+      items(ItemFilter(
+        countries: countries,
+        query: query
+      ))
+    )
+  )
 
 ##### Main
 

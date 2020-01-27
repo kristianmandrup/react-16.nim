@@ -6,21 +6,21 @@ when not defined(js):
   {.error: "React.nim is only available for the JS target".}
 
 type
-  Context*{.importc.} = ref object of RootObj
-  Consumer*{.importc.} = ref object of RootObj
-  Producer*{.importc.} = ref object of RootObj
-  ReactGlobal*{.importc.} = ref object of RootObj
+  Context*{.importc.} = JsObject
+  Consumer*{.importc.} = JsObject
+  Producer*{.importc.} = JsObject
+  ReactGlobal*{.importc.} = JsObject
     version*: cstring
-  ReactDOMGlobal*{.importc.} = ref object of RootObj
+  ReactDOMGlobal*{.importc.} = JsObject
     version*: cstring
-  ReactComponent*{.importc.} = ref object of RootObj
-  ReactNode*{.importc.} = ref object of RootObj
-  EventTarget* = ref object
+  ReactComponent*{.importc.} = JsObject
+  ReactNode*{.importc.} = JsObject
+  EventTarget* = JsObject
     value*: cstring
-  Event* = ref object
+  Event* = JsObject
     target*: EventTarget
     `type`*: cstring
-  Attrs* = ref object
+  Attrs* = JsObject
     onClick*, onChange*: proc(e: Event)
     key*, `ref`*, dangerouslySetInnerHTML*: cstring
 
@@ -49,7 +49,7 @@ type
 
     style*: Style
 
-  Style* = ref object
+  Style* = JsObject
     alignContent*, #	Sets or returns the alignment between the lines inside a flexible container when the items do not use all available space	3
     alignItems*, #	Sets or returns the alignment for items inside a flexible container	3
     alignSelf*, #	Sets or returns the alignment for selected items inside a flexible container	3
@@ -237,7 +237,7 @@ type
     zIndex*, # Setsor returns the stack order of a positioned element	2
 
   # Add more from: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute
-  SvgAttrs* = ref object
+  SvgAttrs* = JsObject
     onClick*: proc(e: Event)
     `accentHeight`*,
     accumulate*
@@ -490,7 +490,7 @@ type
     zoomAndPan*,
     
 {.push importcpp.}
-proc createContext*(react: ReactGlobal, context: ref object): Context
+proc createContext*(react: ReactGlobal, context: JsObject): Context
 proc createElement*(react: ReactGlobal, tag: cstring, props: Attrs): ReactNode
 proc createElement*(react: ReactGlobal, tag: cstring, props: Attrs,
     n1: auto): ReactNode
@@ -524,7 +524,7 @@ var
   ReactDOM*{.importc, nodecl.}: ReactDOMGlobal
 
 type
-  Component*[P, S] = ref object of RootObj
+  Component*[P, S] = JsObject
     props*: P
     state*: S
     setState*{.importcpp.}: proc(s: S)

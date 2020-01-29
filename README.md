@@ -232,9 +232,6 @@ The example app uses
 
 ## Todo
 
-The bindings are still not complete at this point. Things that are left:
-
-* add more fields to the `SvgAttrs` and `Style` types
 * distinguish between keyboard and mouse events, and make sure that one
   has access to all relevant information in the event callbacks
 * add dedicated types, together with converters to string, to generate SVG

@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.3.4"
+version       = "0.3.5"
 author        = "Andrea Ferretti and Kristian Mandrup"
 description   = "Sample React 16.6 SPA with hooks using Nim"
 license       = "Apache2"

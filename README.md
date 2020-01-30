@@ -3,6 +3,40 @@
 This library provides [React.js](https://facebook.github.io/react/) 16.x bindings for
 Nim (Work In Progress)
 
+## Quick start
+
+```nim
+import dom, jsconsole, jsffi, strutils, sequtils, sugar
+import react16
+from react/dom import ul, li, input, `div`
+from react/hooks import useState # , useEffect, useContext
+
+proc main(): ReactComponent =
+  var state = useState(")
+  var searchStr = state[0]
+  var updateSearch = state[1]
+  `div`(
+    Attrs{style: react.Style{marginTop: 50}},
+    `div`(Attrs{className: "row"},
+      `div`(Attrs{className: "col-md-4"},
+        searchComponent(ValueLink(
+          value: searchStr,
+          setValue: updateSearch
+        ))
+    ))
+  )
+
+proc startApp() {.exportc.} =
+  console.log React.version
+  let
+    countries = Countries(countries: @[
+      Country(name: "Italy", population: 59859996),
+    ])
+    content = document.getElementById("content")
+    Main = main(countries)
+  ReactDOM.render(Main, content)
+```
+
 ## Types
 
 The fundamental building block exposed in React.nim is the type
@@ -21,7 +55,7 @@ For your components, it is useful to define your own type aliases, such as in
 the example app:
 
 ```nim
-import react
+import react16
 
 type
   ValueLink = ref object of RootObj
@@ -96,7 +130,7 @@ children (up to 4 for now).
 Children can be `string`, `cstring` or other React nodes, for instance
 
 ```nim
-from react/reactdom import p, span
+from react/dom import p, span
 
 let node = p(span("hello"), "world")
 ```

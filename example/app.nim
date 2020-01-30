@@ -1,7 +1,7 @@
 import dom, jsconsole, jsffi, strutils, sequtils, sugar
-import react
-from react/reactdom import ul, li, input, `div`
-from react/reacthooks import useState # , useEffect, useContext
+import react16
+from react/dom import ul, li, input, `div`
+from react/hooks import useState # , useEffect, useContext
 
 type
   Country = ref object of RootObj

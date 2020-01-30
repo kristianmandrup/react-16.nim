@@ -1,6 +1,6 @@
 # React.nim
 
-This library provides [React.js](https://facebook.github.io/react/) 16.x bindings for
+This library provides [React.js](https://facebook.github.io/react) 16.x bindings for
 Nim (Work In Progress)
 
 ## Quick start
@@ -8,8 +8,8 @@ Nim (Work In Progress)
 ```nim
 import dom, jsconsole, jsffi, strutils, sequtils, sugar
 import react16
-from react/dom import ul, li, input, `div`
-from react/hooks import useState # , useEffect, useContext
+from react16/dom import ul, li, input, `div`
+from react16/hooks import useState # , useEffect, useContext
 
 proc main(): ReactComponent =
   var state = useState(")
@@ -35,6 +35,16 @@ proc startApp() {.exportc.} =
     content = document.getElementById("content")
     Main = main(countries)
   ReactDOM.render(Main, content)
+```
+
+You can `import react16/rhooks` if you prefer to always operate on the React global object.
+
+```nim
+import react16/rhooks
+
+proc counter*(): Element =
+  var state = React.useState(0)
+  # ...
 ```
 
 ## Types
@@ -130,7 +140,7 @@ children (up to 4 for now).
 Children can be `string`, `cstring` or other React nodes, for instance
 
 ```nim
-from react/dom import p, span
+from react16dom import p, span
 
 let node = p(span("hello"), "world")
 ```
@@ -238,7 +248,7 @@ To be documented
 
 ## Hooks
 
-The following hooks are available via `react/reacthooks` (see usage `app.nim` in `example` folder).
+The following hooks are available via `react16/hooks` (see usage `app.nim` in `example` folder).
 
 - `useState`
 - `useEffect`
@@ -266,7 +276,7 @@ The example app uses
 
 ## Todo
 
-* distinguish between keyboard and mouse events, and make sure that one
+- Distinguish between keyboard and mouse events. Make sure that one
   has access to all relevant information in the event callbacks
-* add dedicated types, together with converters to string, to generate SVG
+- Add dedicated types, together with converters to string, to generate SVG
   transforms and CSS dimensions and colors in a typesafe way

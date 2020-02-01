@@ -7,27 +7,26 @@ type
   Reference* = JsObject
     current*: auto
 
-{.push importjs.}
-proc useState*(react: ReactGlobal): seq[auto]
-proc useState*(react: ReactGlobal, initialState: State): seq[auto]
-proc useEffect*(react: ReactGlobal, didUpdate: proc())
-proc useEffect*(react: ReactGlobal, didUpdate: proc(), triggerDependencies: seq[auto])
-proc useContext*(react: ReactGlobal, context: JsObject): Context
-proc useReducer*(react: ReactGlobal, reducer: proc(): auto)
-proc useReducer*(react: ReactGlobal, reducer: proc(): auto, initialArg: auto)
-proc useReducer*(react: ReactGlobal, reducer: proc(): auto, initialArg: auto, init: proc())
-proc useCallback*(react: ReactGlobal, callback: proc())
-proc useCallback*(react: ReactGlobal, callback: proc(), triggerDependencies: auto)
-proc useMemo*(react: ReactGlobal, createFn: proc(), recomputeDependencies: auto)
-proc useRef*(react: ReactGlobal, react: ReactGlobal): Reference
-proc useImperativeHandle*(react: ReactGlobal, reference: Reference, createHandle: proc())
-proc useImperativeHandle*(react: ReactGlobal, reference: Reference, createHandle: proc(), 
-    dependencies: sea[auto])
-proc useLayoutEffect*(react: ReactGlobal, didUpdate: proc())
-proc useLayoutEffect*(react: ReactGlobal, didUpdate: proc(), triggerDependencies: seq[auto])
-proc useDebugValue*(react: ReactGlobal, initialState: auto): auto
+proc useState*(): seq[auto] {. importjs "React.useState" .}
+proc useState*(initialState: State): seq[auto] {. importjs "React.useState" .}
+proc useEffect*(didUpdate: proc()) {. importjs "React.useEffect" .}
+proc useEffect*(didUpdate: proc(), triggerDependencies: seq[auto]) {. importjs "React.useEffect" .}
+proc useContext*(context: JsObject): Context {. importjs "React.useContext" .}
+proc useReducer*(reducer: proc()) {. importjs "React.useReducer" .}
+proc useReducer*(reducer: proc(), initialArg: auto) {. importjs "React.useReducer" .}
+proc useReducer*(reducer: proc(), initialArg: auto, init: proc()) {. importjs "React.useReducer" .}
+proc useCallback*(callback: proc()) {. importjs "React.useCallback" .}
+proc useCallback*(callback: proc(), triggerDependencies: seq[auto]) {. importjs "React.useCallback" .}
+proc useMemo*(createFn: proc(), recomputeDependencies: seq[auto]) {. importjs "React.useMemo" .}
+proc useRef*(): Reference {. importjs "React.useRef" .}
+proc useImperativeHandle*(reference: Reference, createHandle: proc()) {. importjs "React.ImperativeHandle" .}
+proc useImperativeHandle*(reference: Reference, createHandle: proc(), 
+    dependencies: sea[auto]) {. importjs "React.ImperativeHandle" .}
+proc useLayoutEffect*(didUpdate: proc()) {. importjs "React.useLayoutEffect" .}
+proc useLayoutEffect*(didUpdate: proc(), triggerDependencies: seq[auto]) {. importjs "React.useLayoutEffect" .}
+proc useDebugValue*(initialState: auto): auto {. importjs "React.useDebugValue" .}
 
 # concurrent mode hooks (experimental) - see https://reactjs.org/docs/concurrent-mode-reference.html
-proc useTransition*(react: ReactGlobal, suspenseConfig: JsObject): auto
-proc useDeferredValue*(react: ReactGlobal, value: auto): auto 
-proc useDeferredValue*(react: ReactGlobal, value: auto, suspenseConfig: JsObject): auto 
+proc useTransition*(suspenseConfig: JsObject): auto {. importjs "React.useTransition" .}
+proc useDeferredValue*(value: auto): auto {. importjs "React.useDeferredValue" .}
+proc useDeferredValue*(value: auto, suspenseConfig: JsObject): auto {. importjs "React.useDeferredValue" .}

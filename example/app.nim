@@ -1,7 +1,7 @@
 import dom, jsconsole, jsffi, strutils, sequtils, sugar
 import react16
 from react16/dom import ul, li, input, `div`
-from react16/hooks import useState # , useEffect, useContext
+from react16/reacthooks import useState # , useEffect, useContext
 
 type
   Country = ref object of RootObj
@@ -50,6 +50,7 @@ proc search(value: string, setValue: proc(e: auto)): ReactComponent =
 ##### Top level
 
 proc topLevel(): ReactComponent =
+  var (query, setQuery) = React.useState('')
   `div`(
     Attrs{style: react.Style{marginTop: 50}},
     `div`(Attrs{className: "row"},

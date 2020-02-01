@@ -1,15 +1,17 @@
 # React.nim
 
 This library provides [React.js](https://facebook.github.io/react) 16.x bindings for
-Nim (Work In Progress)
+Nim (Work In Progress - WIP)
+
+Please help out test these bindings and improve them... :)
 
 ## Quick start
 
 ```nim
 import dom, jsconsole, jsffi, strutils, sequtils, sugar
 import react16
-from react16/dom import ul, li, input, `div`
-from react16/hooks import useState # , useEffect, useContext
+from react16/reactdom import ul, li, input, `div`
+from react16/rhooks import useState # , useEffect, useContext
 
 proc main(): ReactComponent =
   var state = useState(")
@@ -37,10 +39,10 @@ proc startApp() {.exportc.} =
   ReactDOM.render(Main, content)
 ```
 
-You can `import react16/rhooks` if you prefer to always operate on the React global object.
+You can `import react16/reacthooks` if you prefer to always operate on the React global object.
 
 ```nim
-import react16/rhooks
+import react16/reacthooks
 
 proc counter*(): Element =
   var state = React.useState(0)
@@ -112,7 +114,7 @@ let counterC = makeCounter()
 
 As shown above, once you have the definition, you want to export a single
 instance of the React class - here we do that by `let counterC = makeCounter()`.
-The value `counterC` is what is used in Javascript to represent a component, 
+The value `counterC` is what is used in Javascript to represent a component,
 hence calling `makeCounter()` two times will give rise to two
 unrelated counter components.
 
@@ -140,7 +142,7 @@ children (up to 4 for now).
 Children can be `string`, `cstring` or other React nodes, for instance
 
 ```nim
-from react16dom import p, span
+from react16/reactdom import p, span
 
 let node = p(span("hello"), "world")
 ```
@@ -164,6 +166,7 @@ Attrs* = ref object
     target* {.exportc.}, value* {.exportc.}: cstring
   checked* {.exportc.}, readOnly* {.exportc.}, required* {.exportc.}: bool
   style* {.exportc.}: Style
+  # plenty of more atributes...
 ```
 
 It is actually not convenient to instantiate `Attrs` directly, because it has
@@ -189,6 +192,7 @@ Style* = ref object
   color* {.exportc.}, backgroundColor* {.exportc.}: cstring
   marginTop* {.exportc.}, marginBottom* {.exportc.}, marginLeft* {.exportc.},
     marginRight* {.exportc.}: int
+  # plenty of more style attributes...
 ```
 
 A similar remark to `Attrs` applies: it is not convenient to create a `Style`
@@ -211,6 +215,8 @@ For SVG tags there is another module called `reactsvg`. It works the same as
 `SvgAttrs` instead of `Attrs`. This is defined by
 
 ```nim
+import react16/reactsvg
+
 SvgAttrs* = ref object
   # actually, there are many more fields...
   onClick* {.exportc.}: proc(e: Event)
@@ -218,7 +224,7 @@ SvgAttrs* = ref object
     stroke* {.exportc.}, fill* {.exportc.}, transform* {.exportc.}: cstring
 ```
 
-As usual, it is more convenient to use the `svgAttrs` macro to generate
+It is more convenient to use the `svgAttrs` macro to generate
 instances.
 
 ## The top level
@@ -232,39 +238,76 @@ import dom # from the Nim stdlib
 let
   content = document.getElementById("some-id")
   ComponentInstance = myComponent(someProps)
+
 ReactDOM.render(ComponentInstance, content)
 ```
 
-To enable [React concurrent mode](https://reactjs.org/docs/concurrent-mode-reference.html) (aka Suspense) 
+To enable [React concurrent mode](https://reactjs.org/docs/concurrent-mode-reference.html) (aka Suspense)
 use `ReactDOM.createRoot` instead of `ReactDOM.render`
 
 ```nim
-ReactDOM.createRoot(rootNode).render(<App />);
+Main = topLevel(countries)
+ReactDOM.createRoot(rootNode).render(Main);
 ```
+
+If you have the functions such as `createRoot` and `render` directly bound and available, you can 
+instead `import react16/rapi` where these functions can be used directly as follows:
+
+```nim
+Main = topLevel(countries)
+createRoot(rootNode).render(Main)
+```
+
+## Hooks
+
+The following hooks are available via `react16/reacthooks` and `react16/rhooks`
+
+- `useState(value: auto): seq[auto]`
+- `useEffect(didUpdate: proc(), triggerDependencies: seq[auto])`
+- `useReducer(reducer: proc(), initialArg: auto, init: proc())`
+- `useContext(context: JsObject): Context`
+- `useCallback(callback: proc(), triggerDependencies: seq[auto])`
+- `useMemo(createFn: proc(), recomputeDependencies: seq[auto])`
+- `useRef(): Reference`
+- `useImperativeHandle(reference: Reference, createHandle: proc())`
+- `useLayoutEffect(didUpdate: proc(), triggerDependencies: seq[auto])`
+- `useDebugValue(initialState: auto)`
+
+See usage in `example/app.nim` folder).
+
+To use hooks on `React` global var, `import react16/reacthooks` as use as follows:
+
+```nim
+proc topLevel(): ReactComponent =
+  var (query, setQuery) = React.useState('')
+  # ...
+```
+
+If you import or bind to the hook methods directly (f.ex via [esmodule](https://github.com/kristianmandrup/esmodule_nim))
+you can use `import react16/rhooks` as follows:
+
+```nim
+import react16
+import react16/rhooks
+
+# injects and binds var useState (via ES module import)
+esImportVar("useState", "react")
+
+proc topLevel(): ReactComponent =
+  var (query, setQuery) = useState('')
+  # ...
+```
+
+Concurrency mode hooks (aka Suspense) for async render mode
+
+- `useTransition(suspenseConfig: JsObject)`
+- `useDeferredValue(value: auto, suspenseConfig: JsObject)`
+
+
 
 ## Events
 
 To be documented
-
-## Hooks
-
-The following hooks are available via `react16/hooks` (see usage `app.nim` in `example` folder).
-
-- `useState`
-- `useEffect`
-- `useContext`
-- `useReducer`
-- `useCallback`
-- `useMemo`
-- `useRef`
-- `useImperativeHandle`
-- `useLayoutEffect`
-- `useDebugValue`
-
-Concurrency mode hooks (aka Suspense)
-
-- `useTransition`
-- `useDeferredValue`
 
 ## Example app
 

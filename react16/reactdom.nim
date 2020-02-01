@@ -1,5 +1,8 @@
-import macros
-import react
+import macros, dom, jsffi
+import react16
+
+when not defined(js):
+  {.error: "React.nim is only available for the JS target".}
 
 type NodeOrString = ReactNode or seq[ReactNode] or cstring or string
 

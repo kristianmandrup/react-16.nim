@@ -35,8 +35,8 @@ proc startApp() {.exportc.} =
       Country(name: "Italy", population: 59859996),
     ])
     content = document.getElementById("content")
-    Main = main(countries)
-  ReactDOM.render(Main, content)
+    App = main(countries)
+  ReactDOM.render(App, content)
 ```
 
 You can `import react16/reacthooks` if you prefer to always operate on the React global object.
@@ -246,8 +246,8 @@ To enable [React concurrent mode](https://reactjs.org/docs/concurrent-mode-refer
 use `ReactDOM.createRoot` instead of `ReactDOM.render`
 
 ```nim
-Main = topLevel(countries)
-ReactDOM.createRoot(rootNode).render(Main);
+const App = app(countries)
+ReactDOM.createRoot(rootNode).render(App);
 ```
 
 If you have the functions such as `createRoot` and `render` directly bound and available, you can 
@@ -278,7 +278,7 @@ See usage in `example/app.nim` folder).
 To use hooks on `React` global var, `import react16/reacthooks` as use as follows:
 
 ```nim
-proc topLevel(): ReactComponent =
+proc search(): ReactComponent =
   var (query, setQuery) = React.useState('')
   # ...
 ```
@@ -293,7 +293,7 @@ import react16/rhooks
 # injects and binds var useState (via ES module import)
 esImportVar("useState", "react")
 
-proc topLevel(): ReactComponent =
+proc search(): ReactComponent =
   var (query, setQuery) = useState('')
   # ...
 ```
@@ -302,8 +302,6 @@ Concurrency mode hooks (aka Suspense) for async render mode
 
 - `useTransition(suspenseConfig: JsObject)`
 - `useDeferredValue(value: auto, suspenseConfig: JsObject)`
-
-
 
 ## Events
 

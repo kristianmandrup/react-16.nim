@@ -1,3 +1,5 @@
+import jsffi
+
 type
   Context*{.importc.} = JsObject
   Consumer*{.importc.} = JsObject

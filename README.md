@@ -5,6 +5,10 @@ Nim (Work In Progress - WIP)
 
 Please help out test these bindings and improve them... :)
 
+## Status
+
+Library has not been tested and might well contain errors. Please help make this library fully working and functional ;)
+
 ## Quick start
 
 ```nim

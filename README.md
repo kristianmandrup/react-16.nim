@@ -1,7 +1,9 @@
 # React.nim
 
 This library provides [React.js](https://facebook.github.io/react) 16.x bindings for
-Nim (Work In Progress - WIP)
+Nim (Work In Progress - WIP). 
+
+Note: This repo is a [fork of react.nim](https://github.com/andreaferretti/react.nim)
 
 Please help out test these bindings and improve them... :)
 

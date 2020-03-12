@@ -1,5 +1,6 @@
 import macros
-import react16, react16/svg_attrs
+import ../react16
+import react16/svg_attrs
 
 type NodeOrString = ReactNode or seq[ReactNode] or cstring or string
 

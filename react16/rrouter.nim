@@ -1,6 +1,6 @@
 
 import macros, jsffi
-import react
+import react16
 
 type
   History* = JsObject

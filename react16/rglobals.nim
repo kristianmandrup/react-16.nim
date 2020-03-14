@@ -1,4 +1,4 @@
-import ../react16, react16/rtypes
+import rtypes
 
 when not defined(js):
   {.error: "React.nim is only available for the JS target".}

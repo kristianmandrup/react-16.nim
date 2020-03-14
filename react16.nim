@@ -1,4 +1,5 @@
-import macros, dom, jsffi, react16/rtypes, react16/rglobals, react16/reactapi
+import dom, react16/rtypes, react16/reactapi
+from react16/rglobals import React
 
 {.experimental: "callOperator".}
 

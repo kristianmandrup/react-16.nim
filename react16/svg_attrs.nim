@@ -1,4 +1,4 @@
-import macros, dom, jsffi
+import dom
 
 when not defined(js):
   {.error: "React.nim is only available for the JS target".}

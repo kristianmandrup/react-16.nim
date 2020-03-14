@@ -1,5 +1,5 @@
 import macros, dom, jsffi
-import react16
+import react16, rtypes, rglobals
 
 when not defined(js):
   {.error: "React.nim is only available for the JS target".}

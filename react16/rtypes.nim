@@ -4,18 +4,28 @@ type
   Context*{.importc.} = JsObject
   Consumer*{.importc.} = JsObject
   Producer*{.importc.} = JsObject
-  ReactGlobal*{.importc.} = JsObject
+  ReactGlobal* {.importc.} = ref object of RootObj
     version*: cstring
-  ReactDOMGlobal*{.importc.} = JsObject
+  ReactDOMGlobal* {.importc.} = ref object of RootObj
     version*: cstring
-  ReactComponent*{.importc.} = JsObject
-  ReactNode*{.importc.} = JsObject
-  EventTarget* = JsObject
+  ReactDescriptor* [P, S] {.importcpp.} = ref object of RootObj
+    render*: proc(): ReactNode
+    componentWillMount*: proc(): void
+    componentWillUnmount*: proc(): void
+    componentDidMount*: proc(): void
+    componentWillReceiveProps*: proc(nextProps: P): void
+    shouldComponentUpdate*: proc(nextProps: P, nextState: S): bool
+    componentWillUpdate*: proc(nextProps: P, nextState: S): bool
+    componentDidUpdate*: proc(prevProps: P, prevState: S): bool
+    getInitialState*: proc(): S
+  ReactComponent* {.importc.} = ref object of RootObj
+  ReactNode* {.importc.} = ref object of RootObj
+  EventTarget* = ref object
     value*: cstring
-  Event* = JsObject
+  Event* = ref object
     target*: EventTarget
     `type`*: cstring
-  Attrs* = JsObject
+  Attrs* = ref object of RootObj
     onClick*, onChange*: proc(e: Event)
     key*, `ref`*, dangerouslySetInnerHTML*: cstring
 
@@ -43,3 +53,6 @@ type
       step*, width*: cint
 
     style*: Style
+  Style* = ref object
+    color*, backgroundColor*: cstring
+    marginTop*, marginBottom*, marginLeft*, marginRight*: int

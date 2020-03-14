@@ -1,4 +1,5 @@
-import react16/globals, react16/types
+import jsffi, dom
+import ../react16, rglobals, rtypes, svg_attrs
 
 {.push importcpp.}
 proc createContext*(react: ReactGlobal, context: JsObject): Context

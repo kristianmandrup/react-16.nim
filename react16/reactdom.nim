@@ -17,50 +17,50 @@ template makeDomElement(x: untyped, name: string = "") =
   const NIL: Attrs = nil
 
   proc x*(a: Attrs): ReactNode =
-    React.createElement(tag, a)
+    React.createElem(tag, a)
   proc x*(a: Attrs, n1: NodeOrString): ReactNode =
     let m1 = n1.tocstring
-    React.createElement(tag, a, m1)
+    React.createElem(tag, a, m1)
   proc x*(a: Attrs, n1, n2: NodeOrString): ReactNode =
     let
       m1 = n1.tocstring
       m2 = n2.tocstring
-    React.createElement(tag, a, m1, m2)
+    React.createElem(tag, a, m1, m2)
   proc x*(a: Attrs, n1, n2, n3: NodeOrString): ReactNode =
     let
       m1 = n1.tocstring
       m2 = n2.tocstring
       m3 = n3.tocstring
-    React.createElement(tag, a, m1, m2, m3)
+    React.createElem(tag, a, m1, m2, m3)
   proc x*(a: Attrs, n1, n2, n3, n4: NodeOrString): ReactNode =
     let
       m1 = n1.tocstring
       m2 = n2.tocstring
       m3 = n3.tocstring
       m4 = n4.tocstring
-    React.createElement(tag, a, m1, m2, m3, m4)
+    React.createElem(tag, a, m1, m2, m3, m4)
 
   proc x*(n1: NodeOrString): ReactNode =
     let m1 = n1.tocstring
-    React.createElement(tag, NIL, m1)
+    React.createElem(tag, NIL, m1)
   proc x*(n1, n2: NodeOrString): ReactNode =
     let
       m1 = n1.tocstring
       m2 = n2.tocstring
-    React.createElement(tag, NIL, m1, m2)
+    React.createElem(tag, NIL, m1, m2)
   proc x*(n1, n2, n3: NodeOrString): ReactNode =
     let
       m1 = n1.tocstring
       m2 = n2.tocstring
       m3 = n3.tocstring
-    React.createElement(tag, NIL, m1, m2, m3)
+    React.createElem(tag, NIL, m1, m2, m3)
   proc x*(n1, n2, n3, n4: NodeOrString): ReactNode =
     let
       m1 = n1.tocstring
       m2 = n2.tocstring
       m3 = n3.tocstring
       m4 = n4.tocstring
-    React.createElement(tag, NIL, m1, m2, m3, m4)
+    React.createElem(tag, NIL, m1, m2, m3, m4)
 
 makeDomElement(a)
 makeDomElement(abbr)

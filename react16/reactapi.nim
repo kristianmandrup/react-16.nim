@@ -1,30 +1,31 @@
-import jsffi, dom
+import jsffi
+from dom import Element, Document
 import rtypes, svg_attrs
 
 {.push importcpp.}
 proc createContext*(react: ReactGlobal, context: JsObject): Context
-proc createElement*(react: ReactGlobal, tag: cstring, props: Attrs): ReactNode
-proc createElement*(react: ReactGlobal, tag: cstring, props: Attrs,
+proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs): ReactNode
+proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs,
     n1: auto): ReactNode
-proc createElement*(react: ReactGlobal, tag: cstring, props: Attrs, n1,
+proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs, n1,
     n2: auto): ReactNode
-proc createElement*(react: ReactGlobal, tag: cstring, props: Attrs, n1, n2,
+proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs, n1, n2,
     n3: auto): ReactNode
-proc createElement*(react: ReactGlobal, tag: cstring, props: Attrs, n1, n2, n3,
+proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs, n1, n2, n3,
     n4: auto): ReactNode
-proc createElement*(react: ReactGlobal, tag: cstring,
+proc createElem*(react: ReactGlobal, tag: cstring,
     props: SvgAttrs): ReactNode
-proc createElement*(react: ReactGlobal, tag: cstring, props: SvgAttrs,
+proc createElem*(react: ReactGlobal, tag: cstring, props: SvgAttrs,
     n1: auto): ReactNode
-proc createElement*(react: ReactGlobal, tag: cstring, props: SvgAttrs, n1,
+proc createElem*(react: ReactGlobal, tag: cstring, props: SvgAttrs, n1,
     n2: auto): ReactNode
-proc createElement*(react: ReactGlobal, tag: cstring, props: SvgAttrs, n1, n2,
+proc createElem*(react: ReactGlobal, tag: cstring, props: SvgAttrs, n1, n2,
     n3: auto): ReactNode
-proc createElement*(react: ReactGlobal, tag: cstring, props: SvgAttrs, n1, n2,
+proc createElem*(react: ReactGlobal, tag: cstring, props: SvgAttrs, n1, n2,
     n3, n4: auto): ReactNode
-proc createElement*(react: ReactGlobal, c: ReactComponent,
+proc createElem*(react: ReactGlobal, c: ReactComponent,
     props: ref RootObj): ReactNode {.varargs.}
-proc createElement*(react: ReactGlobal, c: ReactComponent): ReactNode
+proc createElem*(react: ReactGlobal, c: ReactComponent): ReactNode
 proc render*(reactDom: ReactDOMGlobal, node: Document, el: Element)
 
 # to enable concurrent mode (Suspense) on VDOM

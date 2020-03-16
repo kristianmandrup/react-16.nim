@@ -8,5 +8,5 @@ when not defined(js):
 
 {.push importcpp.}
 proc `()`*[P](c: ReactComponent, p: P): ReactNode =
-  React.createElement(c, p)
+  React.createElem(c, p)
 {.pop.}

@@ -8,25 +8,17 @@ type
   SvgAttrs* = ref object of RootObj
     onClick*: proc(e: Event)
     accentHeight*: cint
-    accumulate*: cstring
-    # additive*,
-    # alignmentBaseline*,
-    # allowReorder*,
-    # alphabetic*,
-    # amplitude*,
-    # arabicForm*,
-    # ascent*,
-    # attributeName*,
-    # attributeType*,
-    # autoReverse*,
-    # azimuth*,
-    # baseFrequency*,
-    # baselineShift*,
-    # baseProfile*,
-    # bbox*,
-    # begin*,
-    # bias*,
-    # by*,
+    accumulate*, additive*, alignmentBaseline*, allowReorder*, alphabetic*, amplitude*, 
+      arabicForm*, ascent*, attributeName*, attributeType* : cstring
+    autoReverse*,
+      azimuth*,
+      baseFrequency*,
+      baselineShift*,
+      baseProfile*,
+      bbox*,
+      begin*,
+      bias*,
+      by*: cstring
     # calcMode*,
     # capHeight*,
     # clip*,

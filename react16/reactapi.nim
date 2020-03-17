@@ -1,12 +1,14 @@
 import jsffi
 from dom import Element, Document
-import rtypes, svg_attrs
+import rtypes, svg_attrs, rglobals
+
+{.experimental: "callOperator".}
 
 {.push importcpp.}
 proc createContext*(react: ReactGlobal, context: JsObject): Context
-proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs): ReactNode
-proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs,
-    n1: auto): ReactNode
+# proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs): ReactNode
+# proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs,
+#     n1: auto): ReactNode
 proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs, n1,
     n2: auto): ReactNode
 proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs, n1, n2,

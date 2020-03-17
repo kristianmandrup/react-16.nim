@@ -1,4 +1,4 @@
-import jsffi
+import jsffi, react_styles
 
 type
   Context*{.importc.} = JsObject
@@ -52,7 +52,7 @@ type
       maxLength*, min*, minLength*, optimum*, rowSpan*, rows*, size*, start*,
       step*, width*: cint
 
-    style*: Style
-  Style* = ref object
-    color*, backgroundColor*: cstring
-    marginTop*, marginBottom*, marginLeft*, marginRight*: int
+    style*: react_styles.Style
+  # Style* = ref object
+  #   color*, backgroundColor*: cstring
+  #   marginTop*, marginBottom*, marginLeft*, marginRight*: int

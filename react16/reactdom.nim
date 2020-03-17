@@ -1,5 +1,8 @@
 import macros, dom, jsffi
-import react16, rtypes, rglobals
+import react16, rtypes
+from rglobals import React
+
+{.experimental: "callOperator".}
 
 when not defined(js):
   {.error: "React.nim is only available for the JS target".}
@@ -11,6 +14,12 @@ macro idString(x: untyped): auto = newStrLitNode($x)
 template tocstring(x: typed): auto =
   when x is string: cstring(x)
   else: x
+
+{.push importcpp.}
+proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs): ReactNode
+proc createElem*(react: ReactGlobal, tag: cstring, props: Attrs,
+    n1: auto): ReactNode
+{.pop.}
 
 template makeDomElement(x: untyped, name: string = "") =
   const tag {.gensym.} = if name == "": cstring(idString(x)) else: name

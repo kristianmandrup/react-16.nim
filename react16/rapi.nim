@@ -24,6 +24,11 @@ proc createElem*(tag: cstring, props: SvgAttrs, n1, n2,
 proc createElem*(c: ReactComponent,
     props: ref RootObj): ReactNode {.varargs.}
 proc createElem*(c: ReactComponent): ReactNode
+
+proc createElem*(c: ReactNode,
+    props: ref RootObj): ReactNode {.varargs.}
+proc createElem*(c: ReactNode): ReactNode
+
 proc render*(node: ReactNode, el: Element)
 
 # to enable concurrent mode (Suspense) on VDOM

@@ -2,16 +2,25 @@ from dom import Element, Document
 import jsconsole, jsffi, strutils, sequtils, sugar
 import react16
 import react16/reactdom, react16/rglobals, react16/rtypes, react16/react_styles
-# from react16/reactdom import ul, li, input, `div`
+from react16/reactdom import ul, li, input, `div`
 
-proc makeTopLevel(): ReactComponent =
-  defineComponent:
-    proc renderComponent(s: TopLevel): auto =
+type
+  Country = ref object of RootObj
+    name: string
+    population: int
+  Countries = ref object of RootObj
+    countries: seq[Country]
+
+proc makeTopLevel(): ReactNode =
+  # defineComponent:
+  #   var x = 2
+    # proc renderComponent(s: TopLevel): auto =
       `div`(
-        Attrs{style: react_styles.Style{marginTop: 50}},
-        `div`(Attrs{className: "row"},
-          `div`(Attrs{className: "col-md-4"})
-        ))  
+        Attrs{style: react_styles.Style{marginTop: 50}}
+        )  
+
+# let topLevel = makeTopLevel()
+
 
 proc startApp() {.exportc.} =
   console.log React.version
@@ -23,5 +32,5 @@ proc startApp() {.exportc.} =
       Country(name: "Argentina", population: 40117096),
       Country(name: "Japan", population: 127290000)
     ])
-  Main = topLevel(countries)
-  ReactDOM.render(Main, content)
+    content = document.getElementById("content")
+  ReactDOM.render(topLevel(countries), content)

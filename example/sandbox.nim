@@ -1,4 +1,4 @@
-from dom import Element, Document
+from dom import document, Element, Document
 import jsconsole, jsffi, strutils, sequtils, sugar
 import react16
 import react16/reactdom, react16/rglobals, react16/rtypes, react16/react_styles

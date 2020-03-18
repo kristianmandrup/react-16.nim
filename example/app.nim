@@ -1,4 +1,5 @@
-import dom, jsconsole, jsffi, strutils, sequtils, sugar
+from dom import document, Document, Element
+import jsconsole, jsffi, strutils, sequtils, sugar
 import react16
 from react16/reactdom import ul, li, input, `div`
 from react16/reacthooks import useState # , useEffect, useContext

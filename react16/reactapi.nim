@@ -34,7 +34,7 @@ proc createElem*(react: ReactGlobal, c: ReactNode,
     props: ref RootObj): ReactNode {.varargs.}
 proc createElem*(react: ReactGlobal, c: ReactNode): ReactNode
 
-proc render*(reactDom: ReactDOMGlobal, node: Document, el: Element)
+proc render*(reactDom: ReactDOMGlobal, node: Element, el: ReactNode)
 
 # to enable concurrent mode (Suspense) on VDOM
 proc createRoot*(rootElement: Element): ReactNode

@@ -1,6 +1,8 @@
-from dom import document, Element, Document
+# from dom import document, Element, Document
+import dom
 import jsconsole, jsffi, strutils, sequtils, sugar
 import react16
+import react16/reactapi
 import react16/reactdom, react16/rglobals, react16/rtypes, react16/react_styles
 from react16/reactdom import ul, li, input, `div`
 
@@ -33,4 +35,4 @@ proc startApp() {.exportc.} =
       Country(name: "Japan", population: 127290000)
     ])
     content = document.getElementById("content")
-  ReactDOM.render(topLevel(countries), content)
+  ReactDOM.render(content, makeTopLevel())
